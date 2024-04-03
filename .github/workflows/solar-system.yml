@@ -13,13 +13,13 @@ jobs:
         - name: checkout repository
           uses: actions/checkout@v4
 
-        - name: Setup node
+        - name: Setup node js
           uses: actions/setup-node@v4
           with:
             node-version: 18
 
         - name: install dependecies
           run: npm install
-          
+
         - name: Unit Testing
           run: npm test
