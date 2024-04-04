@@ -10,20 +10,44 @@ on:
 #     MONGO_USERNAME: ${{vars.MONGO_USERNAME}}
 #     MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
 jobs:
-    unit-testing:
-        name: Unit Testing
+    # unit-testing:
+
+    #     name: Unit Testing
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: checkout repository
+    #       uses: actions/checkout@v4
+
+    #     - name: Setup node js
+    #       uses: actions/setup-node@v3
+    #       with:
+    #         node-version: 18
+
+    #     - name: install dependecies
+    #       run: npm install
+
+    #     - name: Unit Testing
+    #       run: npm test
+    code-coverage:
         runs-on: ubuntu-latest
         steps:
-        - name: checkout repository
-          uses: actions/checkout@v4
+            - name: checkout
+              uses: actions/checkout@v4
 
-        - name: Setup node js
-          uses: actions/setup-node@v3
-          with:
-            node-version: 18
+            - name: Setup node js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+    
+            - name: install dependecies
+              run: npm install
+    
+            - name: Unit Testing
+              run: npm run coverage
 
-        - name: install dependecies
-          run: npm install
-
-        - name: Unit Testing
-          run: npm test
+            - name: Result
+              uses: actions/upload-artifact@v3
+              with:
+                name: Code-Coverage-Result
+                path: coverage
+                retention-days: 2
